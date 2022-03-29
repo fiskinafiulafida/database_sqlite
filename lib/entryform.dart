@@ -85,17 +85,17 @@ class _EntryFormState extends State<EntryForm> {
                   ),
                   onPressed: () {
                      if (item == null) {
-                     // tambah data
+                      // tambah data
                     item = Item(nameController.text,
-                    int.parse(priceController.text));
-                     } else {
+                      int.parse(priceController.text));
+                        } else {
                      // ubah data
-                    item.name = nameController.text;
-                    item.price = int.parse(priceController.text);
-                     }
+                      item.name = nameController.text;
+                      item.price = int.parse(priceController.text);
+                      }
                      // kembali ke layar sebelumnya dengan membawa objek item
-                     Navigator.pop(context, item);
-                     },
+                      Navigator.pop(context, item);
+                    },
                   ),
                 ),
                 Container(width: 5.0,),
