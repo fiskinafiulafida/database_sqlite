@@ -84,8 +84,8 @@ class HomeState extends State<Home> {
               child: Icon(Icons.delete),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                // deleteContact(itemList[index]);
-                int result = await dbHelper.delete(this.itemList[index].id);
+                dbHelper.delete(itemList[index].id);
+                updateListView();
               },
             ),
             onTap: () async {
