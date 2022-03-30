@@ -84,12 +84,21 @@ class HomeState extends State<Home> {
               child: Icon(Icons.delete),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
+                // deleteContact(itemList[index]);
+                int result = await dbHelper.delete(this.itemList[index].id);
               },
             ),
             onTap: () async {
               var item =
                   await navigateToEntryForm(context, this.itemList[index]);
               //TODO 4 Panggil Fungsi untuk Edit data
+              // if (List != null) editListView(List);
+              if (item != null) {
+                int result = await dbHelper.update(item);
+                if (result > 0) {
+                  updateListView();
+                }
+              }
             },
           ),
         );
