@@ -80,7 +80,19 @@ class HomeState extends State<Home> {
               this.itemList![index].name,
               style: textStyle,
             ),
-            subtitle: Text(this.itemList![index].price.toString()),
+            subtitle: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(this.itemList![index].price.toString()),
+                ),
+                Expanded(
+                  child: Text(this.itemList![index].kodeBarang.toString()),
+                ),
+                Expanded(
+                  child: Text(this.itemList![index].stok.toString()),
+                ),
+              ],
+            ),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
