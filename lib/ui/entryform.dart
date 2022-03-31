@@ -3,7 +3,7 @@ import '../models/item.dart';
 
 class EntryForm extends StatefulWidget {
   // const EntryForm({Key? key}) : super(key: key);
-  final Item item;
+  final Item? item;
 
   EntryForm(this.item);
 
@@ -13,7 +13,7 @@ class EntryForm extends StatefulWidget {
 
 // class controller
 class EntryFormState extends State<EntryForm> {
-  Item item;
+  Item? item;
 
   EntryFormState(this.item);
 
@@ -26,10 +26,10 @@ class EntryFormState extends State<EntryForm> {
   Widget build(BuildContext context) {
     // kondisi
     if (item != null) {
-      nameController.text = item.name;
-      priceController.text = item.price.toString();
-      stokController.text = item.stok.toString();
-      kodeBarangController.text = item.kodeBarang;
+      nameController.text = item!.name;
+      priceController.text = item!.price.toString();
+      stokController.text = item!.stok.toString();
+      kodeBarangController.text = item!.kodeBarang;
     }
 
     return Scaffold(
@@ -130,10 +130,10 @@ class EntryFormState extends State<EntryForm> {
                             );
                           } else {
                             // ubah data
-                            item.name = nameController.text;
-                            item.price = int.parse(priceController.text);
-                            item.kodeBarang = kodeBarangController.text;
-                            item.stok = int.parse(stokController.text);
+                            item!.name = nameController.text;
+                            item!.price = int.parse(priceController.text);
+                            item!.kodeBarang = kodeBarangController.text;
+                            item!.stok = int.parse(stokController.text);
                           }
                           // kembali ke layar sebelumnya dengan membawa objek item
                           Navigator.pop(context, item);

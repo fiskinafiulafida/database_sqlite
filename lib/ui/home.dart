@@ -7,6 +7,7 @@ import 'package:tugas_database/ui/entryform.dart';
 import '../models/item.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
   @override
   HomeState createState() => HomeState();
 }
@@ -14,13 +15,13 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   DbHelper dbHelper = DbHelper();
   int count = 0;
-  List<Item> itemList;
+  List<Item>? itemList;
 
   @override
   Widget build(BuildContext context) {
     // kondisi
     if (itemList == null) {
-      itemList = List<Item>();
+      itemList = <Item>[];
     }
 
     return Scaffold(
@@ -40,7 +41,7 @@ class HomeState extends State<Home> {
               onPressed: () async {
                 var item = await navigateToEntryForm(context, null);
                 if (item != null) {
-                  // TODO 2 memanggil fungsi untuk insert ke DB
+                  //TODO 2 Panggil Fungsi untuk Insert ke DB
                   int result = await dbHelper.insert(item);
                   if (result > 0) {
                     updateListView();
@@ -54,7 +55,7 @@ class HomeState extends State<Home> {
     );
   }
 
-  Future<Item> navigateToEntryForm(BuildContext context, Item item) async {
+  Future<Item> navigateToEntryForm(BuildContext context, Item? item) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
       return EntryForm(item);
@@ -63,7 +64,7 @@ class HomeState extends State<Home> {
   }
 
   ListView createListView() {
-    TextStyle textStyle = Theme.of(context).textTheme.headline5;
+    TextStyle? textStyle = Theme.of(context).textTheme.headline5;
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
@@ -76,21 +77,21 @@ class HomeState extends State<Home> {
               child: Icon(Icons.ad_units),
             ),
             title: Text(
-              this.itemList[index].name,
+              this.itemList![index].name,
               style: textStyle,
             ),
-            subtitle: Text(this.itemList[index].price.toString()),
+            subtitle: Text(this.itemList![index].price.toString()),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
                 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                dbHelper.delete(itemList[index].id);
+                dbHelper.delete(itemList![index].id);
                 updateListView();
               },
             ),
             onTap: () async {
               var item =
-                  await navigateToEntryForm(context, this.itemList[index]);
+                  await navigateToEntryForm(context, this.itemList![index]);
               //TODO 4 Panggil Fungsi untuk Edit data
               // if (List != null) editListView(List);
               if (item != null) {

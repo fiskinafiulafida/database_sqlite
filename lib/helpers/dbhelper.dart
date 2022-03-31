@@ -5,18 +5,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tugas_database/models/item.dart';
 
 class DbHelper {
-  static DbHelper _dbHelper;
-  static Database _database;
+  static DbHelper? _dbHelper;
+  static Database? _database;
   DbHelper._createObject();
 
   Future<Database> initDb() async {
     //untuk menentukan nama database dan lokasi yg dibuat
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'item.db';
-    // create, read databases
+    String path = directory.path + 'items.db';
+    //create, read databases
     var itemDatabase = openDatabase(path, version: 1, onCreate: _createDb);
 
-    //mengembalikan nilai object sebagai hasil dari fungsinya
     return itemDatabase;
   }
 
@@ -26,7 +25,9 @@ class DbHelper {
     CREATE TABLE item (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    price INTEGER
+    price INTEGER,
+    kodeBarang TEXT,
+    stok INTEGER
     )
     ''');
   }
@@ -63,7 +64,7 @@ class DbHelper {
   Future<List<Item>> getItemList() async {
     var itemMapList = await select();
     int count = itemMapList.length;
-    List<Item> itemList = List<Item>();
+    List<Item> itemList = <Item>[];
     for (int i = 0; i < count; i++) {
       itemList.add(Item.fromMap(itemMapList[i]));
     }
@@ -74,13 +75,13 @@ class DbHelper {
     if (_dbHelper == null) {
       _dbHelper = DbHelper._createObject();
     }
-    return _dbHelper;
+    return _dbHelper!;
   }
 
   Future<Database> get database async {
     if (_database == null) {
       _database = await initDb();
     }
-    return _database;
+    return _database!;
   }
 }
